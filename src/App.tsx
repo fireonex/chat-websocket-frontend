@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import { io } from "socket.io-client";
 
-const socket = io('https://chat-websocket-backend.vercel.app/');
+const socket = io('https://chat-websocket-backend-kataerelfireonexs-projects.vercel.app/');
 
 type User = {
     id: string;
