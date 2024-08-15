@@ -10,8 +10,7 @@ type Props = {
     name: string
 }
 
-export const ChatButtons = ({setMessage, message, name}: Props) => {
-
+export const ChatButtons = ({ setMessage, message, name }: Props) => {
     const error = useAppSelector(state => state.chat.error);
     const dispatch = useDispatch<AppDispatch>();
 
@@ -21,21 +20,27 @@ export const ChatButtons = ({setMessage, message, name}: Props) => {
         });
     }
 
-    return <div className={styles.buttonGroup}>
-        <button
-            className={styles.button}
-            onClick={() => {
-                dispatch(chatThunks.setClientName(name));
-            }}
-        >
-            Save Name
-        </button>
-        <button
-            className={styles.button}
-            onClick={sendMessageHandler}
-            disabled={!!error}
-        >
-            Send
-        </button>
-    </div>
+    const saveNameHandler = () => {
+        console.log("Saving name:", name); // Логирование
+        dispatch(chatThunks.setClientName(name));
+    }
+
+    return (
+        <div className={styles.buttonGroup}>
+            <button
+                className={styles.button}
+                onClick={saveNameHandler}
+            >
+                Save Name
+            </button>
+            <button
+                className={styles.button}
+                onClick={sendMessageHandler}
+                disabled={!!error}
+            >
+                Send
+            </button>
+        </div>
+    );
 }
+

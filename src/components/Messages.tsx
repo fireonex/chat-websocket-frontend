@@ -29,7 +29,7 @@ export const Messages = ({messagesAnchorRef, setIsAutoScrollActive}: Props) => {
         {
             typingUsers.map((el: User) => (
                 <div key={el.id}>
-                    <b>{el.name}:</b> печатает...
+                    <p>{el.name} печатает...</p>
                 </div>
             ))}
         <div ref={messagesAnchorRef}></div>

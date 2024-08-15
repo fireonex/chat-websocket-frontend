@@ -4,7 +4,7 @@ import {Message, User} from "../types/common-types";
 export const api = {
     socket: null as null | Socket,
     createConnection() {
-        this.socket = io('http://localhost:3009/')
+        this.socket = io('https://eff1a773-2617-446e-a3ae-279ac887e44f-00-3q6d1tbffzf1p.worf.replit.dev/')
     },
     subscribe(
         initMessagesHandler: (messages: Message[]) => void,

@@ -41,13 +41,13 @@ export const createConnection = (): AppThunk => async (dispatch: AppDispatch) =>
     api.createConnection();
     api.subscribe(
         (messages: Message[]) => {
-            dispatch(chatActions.messagesReceived({messages}));
+            dispatch(chatActions.messagesReceived({ messages }));
         },
         (message: Message) => {
-            dispatch(chatActions.newMessagesReceived({message}));
+            dispatch(chatActions.newMessagesReceived({ message }));
         },
         (user: User) => {
-            dispatch(chatActions.addedUserTyping({user}));
+            dispatch(chatActions.addedUserTyping({ user }));
         }
     );
 };

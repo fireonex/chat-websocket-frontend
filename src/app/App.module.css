@@ -47,6 +47,7 @@
 }
 
 .inputField {
+  font-size: 16px;
   margin-bottom: 10px;
   padding: 5px;
   border: 1px solid #ccc;
@@ -89,6 +90,7 @@
 }
 
 .textarea {
+  font-size: 16px;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
