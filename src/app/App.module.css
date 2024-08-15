@@ -1,5 +1,3 @@
-/* App.module.css */
-
 .container {
   display: flex;
   justify-content: center;
@@ -12,10 +10,13 @@
   border: 1px solid black;
   padding: 10px;
   height: 500px;
-  width: 350px; /* Увеличил ширину */
+  width: 350px;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box; /* Учитываем padding в размерах */
+  box-sizing: border-box;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .messages {
@@ -25,8 +26,11 @@
   background-color: white;
   border-radius: 5px;
   margin-bottom: 10px;
-  box-sizing: border-box; /* Учитываем padding в размерах */
+  box-sizing: border-box;
+  word-wrap: break-word;
+  word-break: break-word;
 }
+
 
 .messages::-webkit-scrollbar {
   width: 8px;
@@ -47,8 +51,8 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%; /* Устанавливаем ширину 100% */
-  box-sizing: border-box; /* Учитываем padding в размерах */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .buttonGroup {
@@ -63,20 +67,33 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 48%; /* Устанавливаем ширину кнопок */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: 48%;
+  font-weight: bold;
 }
 
 .button:hover {
   background-color: #6f4b8c;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled {
+  background-color: #b0aeb0;
+  color: #f0f0f0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.button:disabled:hover {
+  background-color: #b0aeb0;
 }
 
 .textarea {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%; /* Устанавливаем ширину 100% */
+  width: 100%;
   resize: none;
   margin-bottom: 10px;
-  box-sizing: border-box; /* Учитываем padding в размерах */
+  box-sizing: border-box;
 }

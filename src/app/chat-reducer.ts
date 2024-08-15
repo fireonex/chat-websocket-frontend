@@ -1,11 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api } from "../common/api/api";
-import { Message, User } from "../common/types/common-types";
-import { AppThunk, AppDispatch } from "./store";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {api} from "../common/api/api";
+import {Message, User} from "../common/types/common-types";
+import {AppDispatch, AppThunk} from "./store";
 
 const initialState = {
     messages: [] as Message[],
-    typingUsers: [] as User[], // Исправлено для множественного числа
+    typingUsers: [] as User[],
+    error: null as string | null
 };
 
 const slice = createSlice({
@@ -23,6 +24,9 @@ const slice = createSlice({
                 state.typingUsers.push(action.payload.user);
             }
         },
+        errorOccurred: (state, action: PayloadAction<{ error: string | null }>) => {
+            state.error = action.payload.error
+        },
         removeUserTyping: (state, action: PayloadAction<{ userId: string }>) => {
             state.typingUsers = state.typingUsers.filter(u => u.id !== action.payload.userId);
         }
@@ -37,13 +41,13 @@ export const createConnection = (): AppThunk => async (dispatch: AppDispatch) =>
     api.createConnection();
     api.subscribe(
         (messages: Message[]) => {
-            dispatch(chatActions.messagesReceived({ messages }));
+            dispatch(chatActions.messagesReceived({messages}));
         },
         (message: Message) => {
-            dispatch(chatActions.newMessagesReceived({ message }));
+            dispatch(chatActions.newMessagesReceived({message}));
         },
         (user: User) => {
-            dispatch(chatActions.addedUserTyping({ user }));
+            dispatch(chatActions.addedUserTyping({user}));
         }
     );
 };
@@ -56,9 +60,21 @@ export const setClientName = (name: string): AppThunk => async (dispatch: AppDis
     api.sentName(name);
 };
 
-export const setClientMessage = (message: string): AppThunk => async (dispatch: AppDispatch) => {
-    api.sentMessage(message);
-};
+export const setClientMessage =
+    (message: string): AppThunk<Promise<void>> => async (dispatch: AppDispatch) => {
+        return new Promise<void>((resolve, reject) => {
+            if (message.length === 0) {
+                dispatch(chatActions.errorOccurred({error: 'You can\'t send an empty message'}));
+            } else if (message.length > 100) {
+                dispatch(chatActions.errorOccurred({error: 'Message length should be less than 100 symbols'}));
+            } else {
+                api.sentMessage(message);
+                dispatch(chatActions.errorOccurred({error: null}));
+                resolve(); // Сообщение успешно отправлено
+            }
+        });
+    };
+
 
 export const typeMessage = (): AppThunk => async (dispatch: AppDispatch) => {
     api.typeMessage();
